@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>滚动切换页面</title>
+    <meta name="description" content="简单实用鼠标滚动上下切换轮播图js特效代码。" />
+    <meta name="keywords" content="简单实用,鼠标滚动,上下切换,切换轮播图,js特效代码" />
+    <meta name="author" content="js代码" />
+    <meta name="Copyright" content="js代码" />
+    <link href="css/index.css" rel="stylesheet" />
+    <script src="stact.js"></script>
+    <script type="text/javascript">
+        var num = 0;
+        var imgs = 0;
+        var scrollFunc = function (e) {
+            e = e || window.event;
+            if (e.wheelDelta) {//
+                var div = document.getElementById("content");
+                if (e.wheelDelta > 0) { //当滑轮向上滚动时
+                    if (num == 0) return;
+                    if ($("#content").is(":animated")) return;
+                    num--; $("#content").animate({ top: '+=100vh' }, 500);
+                    $("#ul li").eq(num +1).removeClass("ckeck-li");
+                    $("#ul li").eq(num).addClass("ckeck-li");
+                }
+                else if (e.wheelDelta < 0) {//当滑轮向下滚动时
+                    if (num == imgs-1) return;
+                    if ($("#content").is(":animated")) return;
+                    num++; $("#content").animate({ top: '-=100vh' }, 500, function () { });
+                    $("#ul li").eq(num - 1).removeClass("ckeck-li");
+                    $("#ul li").eq(num).addClass("ckeck-li");
+                }
+            }
+        }
+        window.onmousewheel = scrollFunc;
+        $(function () {
+            imgs = $("#content div").length;
+            var ul = document.createElement("ul");
+            ul.setAttribute("id", "ul");
+            for (var i = 0; i < imgs-4; i++) {
+                var li = document.createElement("li");
+                if (i == 0) li.setAttribute("class", "ckeck-li");
+                ul.appendChild(li);
+            }
+            $(".content").append(ul);
+            $("#ul li").click(function () {
+                var index = $("#ul li").index(this);
+                if (index > num) {
+                    $("#content").animate({ top: '-=' + (index - num) + '00vh' }, 500);
+                    $("#ul li").removeClass("ckeck-li");
+                    $("#ul li").eq(index).addClass("ckeck-li");
+                } else if (index < num) {
+                    $("#content").animate({ top: '+=' + (num - index) + '00vh' }, 500);
+                    $("#ul li").removeClass("ckeck-li");
+                    $("#ul li").eq(index).addClass("ckeck-li");
+                } else {
+                    return;
+                }
+                num = index;
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        function stops(){
+            return false;
+        }
+        document.oncontextmenu=stops;
+    </script>
+</head>
+<body>
+<div class="content">
+    <div  style="position:relative;" id="content">
+        <div class="img1 ">  
+            <h2 id="word">苏轼诗词可视化</h2>
+            <div id="pome">
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                <p>今天天气真好 <span class="pome_title"></span></p>
+                
+            </div>
+        </div>
+        <div class="img2 clearfix">
+            <div class='fl left'>
+             <!-- <img src="image/左侧信息.png" style="width:400px;height:300px;position:absolute;top:200px;"> -->
+            </div>
+            <div class='fl middle'>
+<img src="image/未选中-neutral.png" style="width: 820px;height: 600px;">
+            </div>
+            <div class='fl right'>
+             <p>年龄</p>
+             <p>数量</p>
+             <p>官职</p>
+             
+            </div>
+
+
+        </div>
+        <div class="img3"></div>
+        <div class="img4"></div>
+    </div>
+</div>
+</body>
+</html>
